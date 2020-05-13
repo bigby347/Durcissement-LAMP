@@ -17,6 +17,9 @@ apt-get install -y \
 
 RUN docker-php-ext-install mysqli
 
+EXPOSE 80
+EXPOSE 443
+
 # Manually set up the apache environment variables
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
