@@ -1,0 +1,31 @@
+version: '3'
+services:
+  webcontainer:
+    container_name: webcontainer
+    image: weblamp:1.0
+    ports: 
+      - "8080:80"
+      - "4443:443"
+    networks:
+      - backend
+    links: 
+      - dbcontainer:db
+  dbcontainer:
+    container_name: dbcontainer
+    image: mysql:${MYSQL_VERSION:-latest}
+    restart: always
+    ports:
+      - "3000:3306"
+    volumes:
+            - data:/var/lib/mysql
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+networks: 
+  backend:
+volumes:
+  data:
