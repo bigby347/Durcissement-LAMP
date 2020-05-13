@@ -28,9 +28,9 @@ EXPOSE 443
 COPY config/ /etc/apache2
 
 RUN a2enmod evasive security2 proxy proxy_http
-
+RUN service apache2 restart
 #active 001-reverse-proxy.conf
 RUN a2ensite 001-reverse-proxy.conf
 
-CMD /usr/sbin/apache2ctl -D FOREGROUND 
+CMD /usr/sbin/apache2ctl -D FOREGROUND
 

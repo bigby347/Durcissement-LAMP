@@ -3,11 +3,9 @@ services:
   webcontainer:
     container_name: webcontainer
     image: bigby347/weblamp:1.0
-    ports: 
-      - "8080:80"
-      - "4443:443"
     networks:
-      - backend
+      backend:
+        ipv4_address: "172.22.0.3"
     links: 
       - dbcontainer:db
   dbcontainer:
@@ -19,13 +17,26 @@ services:
     volumes:
             - data:/var/lib/mysql
     networks:
-      - backend
+      backend:
+        ipv4_address: "172.22.0.2"
     environment:
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_USER: "${DB_USERNAME}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
+  proxy:
+    container_name: reverseproxy
+    image: bigby347/reverse-proxy:1.0
+    ports: 
+      - "8080:80"
+    networks:
+      backend:
+        ipv4_address: "172.22.1.1"
 networks: 
   backend:
+    driver: bridge
+    ipam: 
+      config:
+          - subnet: "172.22.0.0/16"
 volumes:
   data:
