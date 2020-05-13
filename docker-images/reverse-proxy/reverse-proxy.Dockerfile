@@ -6,7 +6,8 @@ RUN apt-get update -y && \
     apt-get install -y \
         git \
         nano \
-        curl
+        curl \
+        vim
 
 RUN apt-get install -y apache2
 RUN apt-get install -y fail2ban
