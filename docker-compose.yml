@@ -1,5 +1,13 @@
 version: '3'
 services:
+  webdvwa:
+    container_name: dvwacontainer
+    image: vulnerables/web-dvwa
+    networks:
+      backend:
+        ipv4_address: "172.22.0.4"
+    links: 
+      - dbcontainer:db
   webcontainer:
     container_name: webcontainer
     image: bigby347/weblamp:1.0
@@ -26,7 +34,7 @@ services:
       MYSQL_PASSWORD: "${DB_PASSWORD}"
   proxy:
     container_name: reverseproxy
-    image: bigby347/reverse-proxy:1.0
+    image: bigby347/reverse-proxy:1.1
     ports: 
       - "8080:80"
     networks:
