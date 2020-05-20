@@ -10,3 +10,6 @@ sécurisée avec :
 - des réglages de sécurité dans le fichier de configuration du serveur Apache et de PHP.
 
 # Installation
+
+# Lancement des container web
+docker-compose -p app1 -f ./web-app1/docker-compose.yml up -d && docker-compose -p app_dvwa -f ./dvwa-app/docker-compose.yml up -d

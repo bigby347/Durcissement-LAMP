@@ -1,6 +1,8 @@
 FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
+
+
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y \
@@ -25,12 +27,14 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 EXPOSE 80
 EXPOSE 443
 
-COPY config/ /etc/apache2
+COPY config/sites-available /etc/apache2/sites-available
+COPY config/conf-available /etc/apache2/conf-available
 
 RUN a2enmod evasive security2 proxy proxy_http
 RUN service apache2 restart
 #active 001-reverse-proxy.conf
-RUN a2ensite 001-reverse-proxy.conf
+RUN a2ensite 001-web-app1.conf
+RUN a2ensite 002-dvwa-app.conf
 
 CMD /usr/sbin/apache2ctl -D FOREGROUND
 

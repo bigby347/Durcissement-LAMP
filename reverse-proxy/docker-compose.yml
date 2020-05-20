@@ -1,0 +1,18 @@
+version: '3'
+services:
+  proxy:
+    container_name: reverseproxy
+    build: 
+      context: ../docker-images/reverse-proxy
+      dockerfile: reverse-proxy.Dockerfile
+    ports: 
+      - "8080:80"
+    networks:
+      frontend:
+        ipv4_address: "172.23.0.1"
+networks:
+  frontend:
+    driver: bridge
+    ipam: 
+      config:
+          - subnet: "172.23.0.0/16"

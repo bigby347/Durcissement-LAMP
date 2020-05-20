@@ -1,0 +1,46 @@
+version: '3'
+services:
+  web:
+    container_name: dvwa_app_web
+    image: vulnerables/web-dvwa
+    networks:
+      backend:
+        ipv4_address: "172.22.2.2"
+    links: 
+      - db:db
+  admindb:
+    container_name: dvwa_app_admindb
+    image: phpmyadmin/phpmyadmin:latest
+    networks:
+      backend:
+        ipv4_address: "172.22.2.3"
+    ports: 
+      - "8882:80"
+    links: 
+      - db:db
+  db:
+    container_name: dvwa_app_db
+    image: mysql:${MYSQL_VERSION:-latest}
+    restart: always
+    ports:
+      - "3001:3306"
+    volumes:
+      - data:/var/lib/mysql
+    networks:
+      backend:
+        ipv4_address: "172.22.2.250"
+    env_file:
+      - db_variables.env
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+networks: 
+  backend:
+    driver: bridge
+    ipam: 
+      config:
+          - subnet: "172.22.2.0/24"
+volumes:
+    data:

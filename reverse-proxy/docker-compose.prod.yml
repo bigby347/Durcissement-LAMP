@@ -1,0 +1,10 @@
+version: '3'
+services:
+  proxy:
+    container_name: reverseproxy
+    image: bigby347/reverse-proxy:1.1
+    ports: 
+      - "8080:80"
+    networks:
+      backend:
+        ipv4_address: "172.22.1.1"
