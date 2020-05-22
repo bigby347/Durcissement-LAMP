@@ -8,8 +8,10 @@ services:
     ports: 
       - "8080:80"
     networks:
-      frontend:
-        ipv4_address: "172.23.0.1"
+      - frontend:
+          ipv4_address: "172.23.0.1"
+      - app1_backend:
+      - app_dvwa_backend:
 networks:
   frontend:
     driver: bridge
