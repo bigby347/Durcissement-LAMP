@@ -28,7 +28,7 @@ services:
       - data:/var/lib/mysql
     networks:
       backend:
-        ipv4_address: "172.22.1.250"
+        ipv4_address: "172.22.1.4"
     env_file:
       - db_variables.env
     environment:
