@@ -29,9 +29,8 @@ COPY config/sites-available /etc/apache2/sites-available
 COPY config/conf-available /etc/apache2/conf-available
 COPY config/fail2ban/filter.d /etc/fail2ban/filter.d
 COPY config/fail2ban/jail.local /etc/fail2ban/
-COPY Regles_Security_et_Evasive.sh /usr/local/bin/
-COPY Test.pl /usr/share/doc/libapache2-mod-evasive/examples/
-
+COPY config/Regles_Security_et_Evasive.sh /usr/local/bin/
+COPY config/Test.pl /usr/share/doc/libapache2-mod-evasive/examples/
 
 RUN a2enmod evasive security2 proxy proxy_http
 RUN service apache2 restart
